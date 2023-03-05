@@ -1,0 +1,15 @@
+version: 2
+sources:
+- name: dwh_dev
+  quoting:
+    database: true
+    schema: false
+    identifier: false
+  tables:
+  - name: _airbyte_raw_dbgames
+  - name: _airbyte_raw_dbgames_users
+  - name: _airbyte_raw_dbpayments
+  - name: _airbyte_raw_dbprices
+  - name: _airbyte_raw_dbtoss_groups
+  - name: _airbyte_raw_dbuser_in_games
+  - name: _airbyte_raw_dbusers

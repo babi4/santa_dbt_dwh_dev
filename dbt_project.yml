@@ -1,0 +1,85 @@
+name: airbyte_utils
+version: '1.0'
+config-version: 2
+profile: normalize
+model-paths:
+- models
+docs-paths:
+- docs
+analysis-paths:
+- analysis
+test-paths:
+- tests
+seed-paths:
+- data
+macro-paths:
+- macros
+target-path: ../build
+log-path: ../logs
+packages-install-path: /dbt
+clean-targets:
+- build
+- dbt_modules
+quoting:
+  database: true
+  schema: false
+  identifier: true
+models:
+  airbyte_utils:
+    +materialized: table
+    generated:
+      airbyte_ctes:
+        +tags: airbyte_internal_cte
+        +materialized: ephemeral
+      airbyte_incremental:
+        +tags: incremental_tables
+        +materialized: incremental
+        +on_schema_change: sync_all_columns
+      airbyte_tables:
+        +tags: normalized_tables
+        +materialized: table
+      airbyte_views:
+        +tags: airbyte_internal_views
+        +materialized: view
+dispatch:
+- macro_namespace: dbt_utils
+  search_order:
+  - airbyte_utils
+  - dbt_utils
+vars:
+  json_column: _airbyte_data
+  models_to_source:
+    dbprices_ab1: dwh_dev._airbyte_raw_dbprices
+    dbprices_ab2: dwh_dev._airbyte_raw_dbprices
+    dbprices_stg: dwh_dev._airbyte_raw_dbprices
+    dbprices_scd: dwh_dev._airbyte_raw_dbprices
+    dbprices: dwh_dev._airbyte_raw_dbprices
+    dbgames_ab1: dwh_dev._airbyte_raw_dbgames
+    dbgames_ab2: dwh_dev._airbyte_raw_dbgames
+    dbgames_stg: dwh_dev._airbyte_raw_dbgames
+    dbgames_scd: dwh_dev._airbyte_raw_dbgames
+    dbgames: dwh_dev._airbyte_raw_dbgames
+    dbuser_in_games_ab1: dwh_dev._airbyte_raw_dbuser_in_games
+    dbuser_in_games_ab2: dwh_dev._airbyte_raw_dbuser_in_games
+    dbuser_in_games_stg: dwh_dev._airbyte_raw_dbuser_in_games
+    dbuser_in_games_scd: dwh_dev._airbyte_raw_dbuser_in_games
+    dbuser_in_games: dwh_dev._airbyte_raw_dbuser_in_games
+    dbpayments_ab1: dwh_dev._airbyte_raw_dbpayments
+    dbpayments_ab2: dwh_dev._airbyte_raw_dbpayments
+    dbpayments_stg: dwh_dev._airbyte_raw_dbpayments
+    dbpayments_scd: dwh_dev._airbyte_raw_dbpayments
+    dbpayments: dwh_dev._airbyte_raw_dbpayments
+    dbgames_users_ab1: dwh_dev._airbyte_raw_dbgames_users
+    dbgames_users_ab2: dwh_dev._airbyte_raw_dbgames_users
+    dbgames_users_ab3: dwh_dev._airbyte_raw_dbgames_users
+    dbgames_users: dwh_dev._airbyte_raw_dbgames_users
+    dbtoss_groups_ab1: dwh_dev._airbyte_raw_dbtoss_groups
+    dbtoss_groups_ab2: dwh_dev._airbyte_raw_dbtoss_groups
+    dbtoss_groups_stg: dwh_dev._airbyte_raw_dbtoss_groups
+    dbtoss_groups_scd: dwh_dev._airbyte_raw_dbtoss_groups
+    dbtoss_groups: dwh_dev._airbyte_raw_dbtoss_groups
+    dbusers_ab1: dwh_dev._airbyte_raw_dbusers
+    dbusers_ab2: dwh_dev._airbyte_raw_dbusers
+    dbusers_stg: dwh_dev._airbyte_raw_dbusers
+    dbusers_scd: dwh_dev._airbyte_raw_dbusers
+    dbusers: dwh_dev._airbyte_raw_dbusers
